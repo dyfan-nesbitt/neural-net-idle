@@ -76,7 +76,8 @@ function buyClickPower() {
         updateDataElements();
         dataButton.textContent = `+${formatNumber(clickPower)} Data`;
         clickPowerElement.textContent = `${clickPower}`;
-        clickPowerButton.textContent = `+1 Click Power (${formatNumber(clickUpgradeCost)} Data)`
+        clickPowerButton.textContent = `+1 Click Power (${formatNumber(clickUpgradeCost)} Data)`;
+        saveGame();
     }
 }
 
@@ -93,6 +94,7 @@ function buyPerceptron() {
         perceptronElement.textContent = `${formatNumber(perceptronCount)} perceptrons | ${perceptronProduction}/s`;
         perceptronButton.textContent = `Buy Perceptron (Cost ${formatNumber(perceptronCost)} Data)`;
         updateDataElements();
+        saveGame();
     }
 }
 
@@ -109,6 +111,7 @@ function buyGPU() {
         gpuElement.textContent = `${formatNumber(gpuCount)} GPUs | ${gpuProduction}/s`;
         gpuButton.textContent = `Buy GPU (Cost ${formatNumber(gpuCost)} Data)`;
         updateDataElements();
+        saveGame();
     }
 }
 
@@ -125,6 +128,7 @@ function buyMLP() {
         mlpElement.textContent = `${formatNumber(mlpCount)} MLPs | ${mlpProduction}/s`;
         mlpButton.textContent = `Buy MLP (Cost ${formatNumber(mlpCost)} Data)`;
         updateDataElements();
+        saveGame();
     }
 }
 
@@ -175,7 +179,48 @@ function formatNumber(num) {
     }
 }
 
+// Saving / Loading
+function saveGame() {
+    const saveData = {
+        currentData: currentData,
+        totalDataGenerated: totalDataGenerated,
+        dataGenPerSec: dataGenPerSec,
+        clickPower: clickPower,
+        clickUpgradeCost: clickUpgradeCost,
+        perceptronCount: perceptronCount,
+        perceptronCost: perceptronCost,
+        gpuCount: gpuCount,
+        gpuCost: gpuCost,
+        mlpCount: mlpCount,
+        mlpCost: mlpCost
+    };
+    localStorage.setItem('neuralNetSave', JSON.stringify(saveData));
+}
+
+function loadGame() {
+    const saveString = localStorage.getItem('neuralNetSave');
+
+    if (saveString) {
+        const saveData = JSON.parse(saveString);
+
+        currentData = saveData.currentData;
+        totalDataGenerated = saveData.totalDataGenerated;
+        dataGenPerSec = saveData.dataGenPerSec;
+        clickPower = saveData.clickPower;
+        clickUpgradeCost = saveData.clickUpgradeCost;
+        perceptronCount = saveData.perceptronCount;
+        perceptronCost = saveData.perceptronCost;
+        gpuCount = saveData.gpuCount;
+        gpuCost = saveData.gpuCost;
+        mlpCount = saveData.mlpCount;
+        mlpCost = saveData.mlpCost;
+    }
+}
+
 // Start up
+loadGame();
+
 updateUIOnStartUp();
 
-setInterval(increaseData, 1000)
+setInterval(increaseData, 1000);
+setInterval(saveGame, 10000);
