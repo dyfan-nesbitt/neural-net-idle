@@ -86,6 +86,22 @@ body {
     background: #5594e6;
 }
 
+.cnn-display {
+    border: 2px solid #d231fa;
+}
+
+#buyCnn {
+    background: #d231fa;
+}
+
+.rnn-display {
+    border: 2px solid #fdfd7e;
+}
+
+#buyRnn {
+    background: #fdfd7e;
+}
+
 button {
     transition: opacity 0.15s ease;
     padding: 10px 20px;

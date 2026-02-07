@@ -2,18 +2,30 @@ const dataElement = document.getElementById("dataCount");
 const dataButton = document.getElementById("dataButton");
 const totalDataGeneratedElement = document.getElementById("totalDataGenerated");
 const dataPerSecElement = document.getElementById("dataPerSecond");
+
 // click pwr
 const clickPowerElement = document.getElementById("clickPower");
 const clickPowerButton = document.getElementById("buyClickPower");
+
 // perceptron
 const perceptronElement = document.getElementById("perceptronCount");
 const perceptronButton = document.getElementById("buyPerceptron");
+
 // gpu
 const gpuElement = document.getElementById("gpuCount");
 const gpuButton = document.getElementById("buyGpu");
+
 // mlp
 const mlpElement = document.getElementById("mlpCount");
 const mlpButton = document.getElementById("buyMlp");
+
+// cnn
+const cnnElement = document.getElementById("cnnCount");
+const cnnButton = document.getElementById("buyCnn");
+
+// rnn
+const rnnElement = document.getElementById("rnnCount");
+const rnnButton = document.getElementById("buyRnn");
 
 let currentData = 0;
 let totalDataGenerated = 0;
@@ -44,6 +56,18 @@ let mlpCost = 5000;
 const mlpMultiplier = 1.15;
 const mlpProduction = 50;
 
+// CNN building
+let cnnCount = 0;
+let cnnCost = 50000;
+const cnnMultiplier = 1.15;
+const cnnProduction = 250;
+
+// RNN building
+let rnnCount = 0;
+let rnnCost = 500000;
+const rnnMultiplier = 1.15;
+const rnnProduction = 1000;
+
 function increaseData() {
     let dataGain = dataGenPerSec;
     currentData += dataGain;
@@ -65,6 +89,7 @@ dataButton.addEventListener('click', () => {
     totalDataGeneratedElement.textContent = `Total Data Generated: ${formatNumber(totalDataGenerated)}`;
 });
 
+// -- Button functions --
 function buyClickPower() {
     if (currentData >= clickUpgradeCost) {
         currentData -= clickUpgradeCost;
@@ -91,7 +116,7 @@ function buyPerceptron() {
         
         updateButtonStates();
 
-        perceptronElement.textContent = `${formatNumber(perceptronCount)} perceptrons | ${perceptronProduction}/s`;
+        perceptronElement.textContent = `${formatNumber(perceptronCount)} perceptrons | ${formatNumber(perceptronProduction)}/s`;
         perceptronButton.textContent = `Buy Perceptron (Cost ${formatNumber(perceptronCost)} Data)`;
         updateDataElements();
         saveGame();
@@ -108,7 +133,7 @@ function buyGPU() {
 
         updateButtonStates();
 
-        gpuElement.textContent = `${formatNumber(gpuCount)} GPUs | ${gpuProduction}/s`;
+        gpuElement.textContent = `${formatNumber(gpuCount)} GPUs | ${formatNumber(gpuProduction)}/s`;
         gpuButton.textContent = `Buy GPU (Cost ${formatNumber(gpuCost)} Data)`;
         updateDataElements();
         saveGame();
@@ -125,18 +150,56 @@ function buyMLP() {
 
         updateButtonStates();
 
-        mlpElement.textContent = `${formatNumber(mlpCount)} MLPs | ${mlpProduction}/s`;
+        mlpElement.textContent = `${formatNumber(mlpCount)} MLPs | ${formatNumber(mlpProduction)}/s`;
         mlpButton.textContent = `Buy MLP (Cost ${formatNumber(mlpCost)} Data)`;
         updateDataElements();
         saveGame();
     }
 }
 
+function buyCNN() {
+    if (currentData >= cnnCost) {
+        currentData -= cnnCost;
+        cnnCount++;
+        cnnCost = Math.floor(cnnCost * cnnMultiplier);
+
+        dataGenPerSec += cnnProduction;
+
+        updateButtonStates();
+
+        cnnElement.textContent = `${formatNumber(cnnCount)} CNNs | ${formatNumber(cnnProduction)}/s`;
+        cnnButton.textContent = `Buy CNN (Cost ${formatNumber(cnnCost)} Data)`;
+        updateDataElements();
+        saveGame();
+    }
+}
+
+function buyRNN() {
+    if (currentData >= rnnCost) {
+        currentData -= rnnCost;
+        rnnCount++;
+        rnnCost = Math.floor(rnnCost * rnnMultiplier);
+
+        dataGenPerSec += rnnProduction;
+
+        updateButtonStates();
+
+        rnnElement.textContent = `${formatNumber(rnnCount)} RNNs | ${formatNumber(rnnProduction)}/s`;
+        rnnButton.textContent = `Buy RNN (Cost ${formatNumber(rnnCost)} Data)`;
+        updateDataElements();
+        saveGame();
+    }
+}
+
+
+
 clickPowerButton.addEventListener('click', buyClickPower);
 
 perceptronButton.addEventListener('click', buyPerceptron);
 gpuButton.addEventListener('click', buyGPU);
 mlpButton.addEventListener('click', buyMLP);
+cnnButton.addEventListener('click', buyCNN);
+rnnButton.addEventListener('click', buyRNN);
 
 // -- UI --
 function updateDataElements() {
@@ -149,14 +212,20 @@ function updateUIOnStartUp() {
     updateDataElements();
     totalDataGeneratedElement.textContent = `Total Data Generated: ${formatNumber(totalDataGenerated)}`;
 
-    perceptronElement.textContent = `${formatNumber(perceptronCount)} perceptrons | ${perceptronProduction}/s`;
+    perceptronElement.textContent = `${formatNumber(perceptronCount)} perceptrons | ${formatNumber(perceptronProduction)}/s`;
     perceptronButton.textContent = `Buy Perceptron (Cost ${formatNumber(perceptronCost)} Data)`;
 
-    gpuElement.textContent = `${formatNumber(gpuCount)} GPUs | ${gpuProduction}/s`;
+    gpuElement.textContent = `${formatNumber(gpuCount)} GPUs | ${formatNumber(gpuProduction)}/s`;
     gpuButton.textContent = `Buy GPU (Cost ${formatNumber(gpuCost)} Data)`;
 
-    mlpElement.textContent = `${formatNumber(mlpCount)} MLPs | ${mlpProduction}/s`;
+    mlpElement.textContent = `${formatNumber(mlpCount)} MLPs | ${formatNumber(mlpProduction)}/s`;
     mlpButton.textContent = `Buy MLP (Cost ${formatNumber(mlpCost)} Data)`;
+
+    cnnElement.textContent = `${formatNumber(cnnCount)} CNNs | ${formatNumber(cnnProduction)}/s`;
+    cnnButton.textContent = `Buy CNN (Cost ${formatNumber(cnnCost)} Data)`;
+
+    rnnElement.textContent = `${formatNumber(rnnCount)} RNNs | ${formatNumber(rnnProduction)}/s`;
+    rnnButton.textContent = `Buy RNN (Cost ${formatNumber(rnnCost)} Data)`;
 }
 
 function updateButtonStates() {
@@ -164,6 +233,8 @@ function updateButtonStates() {
     perceptronButton.disabled = (currentData < perceptronCost);
     gpuButton.disabled = (currentData < gpuCost);
     mlpButton.disabled = (currentData < mlpCost);
+    cnnButton.disabled = (currentData < cnnCost);
+    rnnButton.disabled = (currentData < rnnCost);
 }
 
 // -- Helper Functions --
@@ -192,7 +263,11 @@ function saveGame() {
         gpuCount: gpuCount,
         gpuCost: gpuCost,
         mlpCount: mlpCount,
-        mlpCost: mlpCost
+        mlpCost: mlpCost,
+        cnnCount: cnnCount,
+        cnnCost: cnnCost,
+        rnnCount: rnnCount, 
+        rnnCost: rnnCost
     };
     localStorage.setItem('neuralNetSave', JSON.stringify(saveData));
 }
@@ -214,6 +289,10 @@ function loadGame() {
         gpuCost = saveData.gpuCost;
         mlpCount = saveData.mlpCount;
         mlpCost = saveData.mlpCost;
+        cnnCount = saveData.cnnCount; 
+        cnnCost = saveData.cnnCost;
+        rnnCount = saveData.rnnCount;
+        rnnCost = saveData.rnnCost;
     }
 }
 
