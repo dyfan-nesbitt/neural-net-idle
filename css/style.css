@@ -1,0 +1,106 @@
+body {
+    background: #1a1a1a;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #e0e0e0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.data-display {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#dataCount {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    color: #8abae4; 
+}
+
+#dataButton {
+    background: #afdaff;
+    font-size: 30px;
+    padding: 15px 30px;
+}
+
+.data-display-divider {
+    margin: 20px 0 20px;
+    border-color: #8abae4;
+    border-style: solid;
+}
+
+#buyClickPower {
+    background: #8abdff;
+}
+
+.buildings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.buildings > div {
+    background: #3a3a3a;
+    flex: 1 1 175px;
+    max-width: 35%;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.perceptron-display {
+    border: 2px solid #81e9b8;
+}
+
+#buyPerceptron {
+    background: #81e9b8;
+}
+
+.gpu-display {
+    border: 2px solid #f78570;
+}
+
+#buyGpu {
+    background: #f78570;
+}
+
+.mlp-display {
+    border: 2px solid #5594e6;
+}
+
+#buyMlp {
+    background: #5594e6;
+}
+
+button {
+    transition: opacity 0.15s ease;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover:enabled {
+    opacity: 0.75;
+}
+
+button:disabled {
+    cursor: default;
+    color: #1a1a1a;
+    opacity: 0.5;
+}
+

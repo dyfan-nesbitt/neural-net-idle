@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Network Idle</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/game.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="data-display">
+            <p id="dataCount">0 data</p> 
+            <p id="dataPerSecond">1/s</p>
+            <button id="dataButton">+1 Data</button>
+            <hr class="data-display-divider">
+            <div class="click-upgrade">
+                <p>Click Power: <span id="clickPower">1</span></p>
+                <button id="buyClickPower">+1 Click Power (Cost: 50 Data)</button>
+            </div>
+            <p id="totalDataGenerated">Total Data Generated: 0</p>
+        </div>
+
+        <div class="buildings">
+            <div class="perceptron-display">
+                <p id="perceptronCount">0 perceptrons</p>
+                <button id="buyPerceptron">Buy Perceptron (Cost: 10 Data)</button>
+            </div>
+            <div class="gpu-display">
+                <p id="gpuCount">0 GPUs</p>
+                <button id="buyGpu">Buy GPU (Cost: 500 Data)</button>
+            </div>
+            <div class="mlp-display">
+                <p id="mlpCount">0 MLPs</p>
+                <button id="buyMlp">Buy MLP (Cost: 5000 Data)</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
